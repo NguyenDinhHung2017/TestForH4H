@@ -27,6 +27,7 @@ namespace TestTechniqueNGUYEN
 
             var otherResults = choices
                 .Except(matches)
+                .Where(x => x.Length >= term.Length)
                 .Select(x => new
                 {
                     Word = x,
@@ -51,14 +52,7 @@ namespace TestTechniqueNGUYEN
                         
             if (word.Length < term.Length)
             {
-                int diff = 0;
-                for (int i = 0; i < word.Length; i++)
-                {
-                    if (term[i] != word[i])
-                        diff++;
-                }
-                diff += term.Length - word.Length;
-                return diff;
+                return int.MaxValue;
             }
 
             int minDiff = int.MaxValue;
