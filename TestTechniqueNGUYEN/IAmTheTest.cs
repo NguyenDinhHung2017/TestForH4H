@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace TestTechniqueNGUYEN
 {
-    internal class IAmTheTest : IIAmTheTest
+    public class IAmTheTest : IIAmTheTest
     {
-        public IEnumerable<string> GetSuggestions(string term, IEnumerable<string> choices, int numberOfSuggestions)
+        public IEnumerable<string> GetSuggestions(string term,IEnumerable<string> choices,int numberOfSuggestions)
         {
             term = term.ToLower();
 
-            var matches = choices.Where(x => x.ToLower().Contains(term))
+            var matches = choices
+                .Where(x => x.ToLower().Contains(term))
                 .OrderBy(x => x.Length)
                 .ThenBy(x => x.ToLower())
                 .Take(numberOfSuggestions)
@@ -23,28 +24,58 @@ namespace TestTechniqueNGUYEN
                 return matches;
 
             var numberRemaining = numberOfSuggestions - matches.Count;
-            var othersResults = choices.Except(matches)
-                .Where(x => x.Length >= term.Length)
-                .Select(x =>
-                {
-                    int diff = 0;
-                    for (int i = 0; i < term.Length; i++)
-                    {
-                        if (term[i] != x[i])
-                            diff++;
-                    }
-                    int lengthDiff = Math.Abs(x.Length - term.Length);
-                    return (word: x, diff, lengthDiff);
-                })
-                .OrderBy(y => y.diff)
-                .ThenBy(y => y.lengthDiff)
-                .ThenBy(y => y.word)
-                .Take(numberRemaining)
-                .Select(y => y.word);
 
-            matches.AddRange(othersResults);
+            var otherResults = choices
+                .Except(matches)
+                .Select(x => new
+                {
+                    Word = x,
+                    Diff = CalculateDifferenceScore(term, x),
+                    LengthDiff = Math.Abs(x.Length - term.Length)
+                })
+                .OrderBy(x => x.Diff)
+                .ThenBy(x => x.LengthDiff)
+                .ThenBy(x => x.Word)
+                .Take(numberRemaining)
+                .Select(x => x.Word);
+
+            matches.AddRange(otherResults);
 
             return matches;
+        }
+
+        public static int CalculateDifferenceScore(string term, string word)
+        {
+            term = term.ToLower();
+            word = word.ToLower();
+                        
+            if (word.Length < term.Length)
+            {
+                int diff = 0;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (term[i] != word[i])
+                        diff++;
+                }
+                diff += term.Length - word.Length;
+                return diff;
+            }
+
+            int minDiff = int.MaxValue;
+            
+            for (int start = 0; start <= word.Length - term.Length; start++)
+            {
+                int diff = 0;
+                for (int i = 0; i < term.Length; i++)
+                {
+                    if (term[i] != word[start + i])
+                        diff++;
+                }
+
+                minDiff = Math.Min(minDiff, diff);
+            }
+
+            return minDiff;
         }
     }
 }

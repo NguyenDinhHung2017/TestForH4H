@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTechniqueNGUYEN", "TestTechniqueNGUYEN\TestTechniqueNGUYEN.csproj", "{8D47CBC8-E9DE-43E8-9570-D8E294AD759D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTechniqueNGUYEN", "TestTechniqueNGUYEN\TestTechniqueNGUYEN.csproj", "{8D47CBC8-E9DE-43E8-9570-D8E294AD759D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAmTheTestTest", "IAmTheTestTest\IAmTheTestTest.csproj", "{0743870E-B466-4A6F-9470-4485B4DEC554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8D47CBC8-E9DE-43E8-9570-D8E294AD759D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D47CBC8-E9DE-43E8-9570-D8E294AD759D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D47CBC8-E9DE-43E8-9570-D8E294AD759D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0743870E-B466-4A6F-9470-4485B4DEC554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0743870E-B466-4A6F-9470-4485B4DEC554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0743870E-B466-4A6F-9470-4485B4DEC554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0743870E-B466-4A6F-9470-4485B4DEC554}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
